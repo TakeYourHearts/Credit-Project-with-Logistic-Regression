@@ -1,7 +1,20 @@
 1. Business Understand.
 
-    The objective of this project is to design and implement a credit scoring model capable of ranking clients according to their probability of default. The model will be developed using logistic regression as the primary statistical method. Model performance will be evaluated and validated through discriminatory power metrics, specifically the Area Under the Receiver Operating Characteristic Curve (AUC) and the Kolmogorov-Smirnov (KS) statistic.
 
+
+    In credit risk management, financial institutions must continuously assess the probability of default of their clients to support decision-making processes such as credit approval, limit assignment, and risk monitoring.
+
+    In this project, we simulate a scenario in which a financial institution is developing an internal credit risk model to evaluate the likelihood of default among its existing client base. The primary goal is not simply to classify clients as good or bad, but to rank them according to their risk level, enabling more informed and granular decision-making.
+
+    Given the regulatory and operational constraints in credit risk, interpretability plays a central role. The model must provide clear and explainable relationships between input variables and the probability of default, allowing risk analysts and stakeholders to understand the drivers behind each prediction.
+
+    The outputs of this model can be used to:
+    - Support internal credit policies (approval/rejection thresholds)
+    - Adjust credit limits based on risk exposure
+    - Monitor portfolio risk and identify high-risk segments
+    - Assist in pricing strategies aligned with client risk profiles
+
+    Therefore, this project focuses on building a robust and interpretable baseline model that balances predictive performance with transparency, aligning with real-world credit risk practices.
 2. Data Understanding.
 
     The dataset employed in this project is the Give Me Some Credit dataset, publicly available on Kaggle (https://www.kaggle.com/c/GiveMeSomeCredit). Kaggle provides multiple files associated with the competition, including training, test, sample entry, and submission files. For the purposes of this study, emphasis is placed on the test.csv file.
@@ -10,17 +23,19 @@
 
 3. Data Preparation.
 
-    Before applying any data‑processing steps, we first perform a train–test split to avoid data leakage. This ensures that all transformations are learned exclusively from the training set and only applied to the test set afterward.
+    A key concern in building reliable machine learning models is the prevention of data leakage, which occurs when information from outside the training dataset is inadvertently used during model training. This leads to overly optimistic performance metrics and unrealistic results.
 
-    The variable NumberOfTimes90DaysLate is preserved because it reflects historical delinquency behavior, one of the strongest predictors of credit risk.
+    To avoid this issue, the dataset was first split into training and test sets before applying any transformations. All statistical parameters used during feature engineering — such as median imputation and outlier capping — were calculated exclusively on the training set and then applied unchanged to the test set.
 
-    Due to the asymmetric distribution of the income variable, and to prevent the short tail from distorting the model, we apply normalization and a logarithmic transformation to stabilize its distribution.
+    This approach ensures that the model does not have access to future or unseen information during training, closely simulating a real-world scenario where only historical data is available when making predictions.
 
-    For DebtRatio, we adjust the variable to better reflect realistic financial behavior. Extremely high values—representing abnormal debt levels—are capped to reduce the influence of outliers.
+    Additionally, all transformations were encapsulated in a reusable function, guaranteeing consistency between training and test data processing and reducing the risk of unintended leakage.
 
-    Similarly, the IncomeNotProvided flag carries behavioral information: clients who voluntarily report income often have a different relationship with the institution. For this reason, we combine this indicator with the income variable to strengthen the model’s predictive power.
+    By enforcing this separation, the evaluation metrics (AUC and KS) reflect a more realistic estimate of the model’s performance in production environments.
 
     Finally, variables with low contribution or unstable behavior are removed to improve the model’s robustness, interpretability, and overall performance.
+
+    This methodological rigor is particularly important in credit risk modeling, where incorrect validation can lead to misleading conclusions and poor business decisions.
 
 4. Modeling. 
 
