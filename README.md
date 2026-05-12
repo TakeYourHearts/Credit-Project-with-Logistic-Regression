@@ -70,6 +70,7 @@
 
 ![ROC Curve](Images/ROC_Curve.png)
 
+
     A key strength of this project is the emphasis on methodological correctness, particularly the avoidance of data leakage and the use of appropriate evaluation metrics (AUC and KS), ensuring that the model reflects realistic performance in production scenarios.
 
     Additionally, the project highlights the importance of feature engineering and economic interpretation, reinforcing that in credit risk modeling, understanding the drivers of default is as important as predictive performance.
