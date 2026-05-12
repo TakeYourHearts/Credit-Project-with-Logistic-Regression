@@ -68,6 +68,8 @@
 
     Even with a relatively simple and interpretable model (logistic regression), the results show consistent discriminatory power (AUC ≈ 0.66 and KS ≈ 0.24), which is aligned with baseline models commonly used in credit scoring.
 
+![ROC Curve](Images/ROC_Curve.png)
+
     A key strength of this project is the emphasis on methodological correctness, particularly the avoidance of data leakage and the use of appropriate evaluation metrics (AUC and KS), ensuring that the model reflects realistic performance in production scenarios.
 
     Additionally, the project highlights the importance of feature engineering and economic interpretation, reinforcing that in credit risk modeling, understanding the drivers of default is as important as predictive performance.
